@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.whw.bitcoinexplorer0613.dao.BlockMapper">
+  <resultMap id="BaseResultMap" type="com.whw.bitcoinexplorer0613.po.Block">
+    <id column="block_hash" jdbcType="CHAR" property="blockHash" />
+    <result column="height" jdbcType="INTEGER" property="height" />
+    <result column="size" jdbcType="INTEGER" property="size" />
+    <result column="difficulty" jdbcType="DOUBLE" property="difficulty" />
+    <result column="weight" jdbcType="REAL" property="weight" />
+    <result column="next_block" jdbcType="CHAR" property="nextBlock" />
+    <result column="prev_block" jdbcType="CHAR" property="prevBlock" />
+    <result column="time" jdbcType="TIMESTAMP" property="time" />
+    <result column="txSize" jdbcType="SMALLINT" property="txsize" />
+    <result column="output_total" jdbcType="DOUBLE" property="outputTotal" />
+    <result column="transaction_fees" jdbcType="DOUBLE" property="transactionFees" />
+    <result column="merkle_root" jdbcType="VARCHAR" property="merkleRoot" />
+    <result column="miner" jdbcType="VARCHAR" property="miner" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    block_hash, height, size, difficulty, weight, next_block, prev_block, time, txSize, 
+    output_total, transaction_fees, merkle_root, miner
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from block
+    where block_hash = #{blockHash,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from block
+    where block_hash = #{blockHash,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.whw.bitcoinexplorer0613.po.Block">
+    insert into block (block_hash, height, size, 
+      difficulty, weight, next_block, 
+      prev_block, time, txSize, 
+      output_total, transaction_fees, merkle_root, 
+      miner)
+    values (#{blockHash,jdbcType=CHAR}, #{height,jdbcType=INTEGER}, #{size,jdbcType=INTEGER}, 
+      #{difficulty,jdbcType=DOUBLE}, #{weight,jdbcType=REAL}, #{nextBlock,jdbcType=CHAR}, 
+      #{prevBlock,jdbcType=CHAR}, #{time,jdbcType=TIMESTAMP}, #{txsize,jdbcType=SMALLINT}, 
+      #{outputTotal,jdbcType=DOUBLE}, #{transactionFees,jdbcType=DOUBLE}, #{merkleRoot,jdbcType=VARCHAR}, 
+      #{miner,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.whw.bitcoinexplorer0613.po.Block">
+    insert into block
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="blockHash != null">
+        block_hash,
+      </if>
+      <if test="height != null">
+        height,
+      </if>
+      <if test="size != null">
+        size,
+      </if>
+      <if test="difficulty != null">
+        difficulty,
+      </if>
+      <if test="weight != null">
+        weight,
+      </if>
+      <if test="nextBlock != null">
+        next_block,
+      </if>
+      <if test="prevBlock != null">
+        prev_block,
+      </if>
+      <if test="time != null">
+        time,
+      </if>
+      <if test="txsize != null">
+        txSize,
+      </if>
+      <if test="outputTotal != null">
+        output_total,
+      </if>
+      <if test="transactionFees != null">
+        transaction_fees,
+      </if>
+      <if test="merkleRoot != null">
+        merkle_root,
+      </if>
+      <if test="miner != null">
+        miner,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="blockHash != null">
+        #{blockHash,jdbcType=CHAR},
+      </if>
+      <if test="height != null">
+        #{height,jdbcType=INTEGER},
+      </if>
+      <if test="size != null">
+        #{size,jdbcType=INTEGER},
+      </if>
+      <if test="difficulty != null">
+        #{difficulty,jdbcType=DOUBLE},
+      </if>
+      <if test="weight != null">
+        #{weight,jdbcType=REAL},
+      </if>
+      <if test="nextBlock != null">
+        #{nextBlock,jdbcType=CHAR},
+      </if>
+      <if test="prevBlock != null">
+        #{prevBlock,jdbcType=CHAR},
+      </if>
+      <if test="time != null">
+        #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="txsize != null">
+        #{txsize,jdbcType=SMALLINT},
+      </if>
+      <if test="outputTotal != null">
+        #{outputTotal,jdbcType=DOUBLE},
+      </if>
+      <if test="transactionFees != null">
+        #{transactionFees,jdbcType=DOUBLE},
+      </if>
+      <if test="merkleRoot != null">
+        #{merkleRoot,jdbcType=VARCHAR},
+      </if>
+      <if test="miner != null">
+        #{miner,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.whw.bitcoinexplorer0613.po.Block">
+    update block
+    <set>
+      <if test="height != null">
+        height = #{height,jdbcType=INTEGER},
+      </if>
+      <if test="size != null">
+        size = #{size,jdbcType=INTEGER},
+      </if>
+      <if test="difficulty != null">
+        difficulty = #{difficulty,jdbcType=DOUBLE},
+      </if>
+      <if test="weight != null">
+        weight = #{weight,jdbcType=REAL},
+      </if>
+      <if test="nextBlock != null">
+        next_block = #{nextBlock,jdbcType=CHAR},
+      </if>
+      <if test="prevBlock != null">
+        prev_block = #{prevBlock,jdbcType=CHAR},
+      </if>
+      <if test="time != null">
+        time = #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="txsize != null">
+        txSize = #{txsize,jdbcType=SMALLINT},
+      </if>
+      <if test="outputTotal != null">
+        output_total = #{outputTotal,jdbcType=DOUBLE},
+      </if>
+      <if test="transactionFees != null">
+        transaction_fees = #{transactionFees,jdbcType=DOUBLE},
+      </if>
+      <if test="merkleRoot != null">
+        merkle_root = #{merkleRoot,jdbcType=VARCHAR},
+      </if>
+      <if test="miner != null">
+        miner = #{miner,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where block_hash = #{blockHash,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.whw.bitcoinexplorer0613.po.Block">
+    update block
+    set height = #{height,jdbcType=INTEGER},
+      size = #{size,jdbcType=INTEGER},
+      difficulty = #{difficulty,jdbcType=DOUBLE},
+      weight = #{weight,jdbcType=REAL},
+      next_block = #{nextBlock,jdbcType=CHAR},
+      prev_block = #{prevBlock,jdbcType=CHAR},
+      time = #{time,jdbcType=TIMESTAMP},
+      txSize = #{txsize,jdbcType=SMALLINT},
+      output_total = #{outputTotal,jdbcType=DOUBLE},
+      transaction_fees = #{transactionFees,jdbcType=DOUBLE},
+      merkle_root = #{merkleRoot,jdbcType=VARCHAR},
+      miner = #{miner,jdbcType=VARCHAR}
+    where block_hash = #{blockHash,jdbcType=CHAR}
+  </update>
+</mapper>
