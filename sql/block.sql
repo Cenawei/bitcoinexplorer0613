@@ -16,7 +16,7 @@ CREATE TABLE `block` (
                          `txSize` smallint ,
                          `output_total` double ,
                          `transaction_fees` double,
-                         `merkle_root` varchar(99),
+                         `merkle_root` varchar(100),
                          `miner` varchar (50),
                          PRIMARY KEY (`block_hash`),
                          index `idx_time`(`time`),
