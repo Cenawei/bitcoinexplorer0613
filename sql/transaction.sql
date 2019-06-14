@@ -5,17 +5,17 @@ SET FOREIGN_KEY_CHECKS=0;
 -- ----------------------------
 DROP TABLE IF EXISTS `transaction`;
 CREATE TABLE `transaction` (
-                         `txhash` char(64) NOT NULL,
-                         `blockhash` char(64) NOT NULL ,
+                         `tx_hash` char(64) NOT NULL,
+                         `block_hash` char(64) NOT NULL ,
                          `size` int ,
-                         `fees` double,
                          `weight` float ,
-                         `totaloutput` double,
-                         `totalinput` double,
+                         `output_total` double,
+                         `input_total` double,
+                         `transaction_fees` double,
                          `amount` double,
                          `time` datetime ,
                          `confirmations` int,
-                         PRIMARY KEY (`txhash`),
+                         PRIMARY KEY (`tx_hash`),
                          index `idx_time`(`time`),
-                         index `idx_blockhash`(`blockhash`)
+                         index `idx_block_hash`(`block_hash`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 auto_increment=1;

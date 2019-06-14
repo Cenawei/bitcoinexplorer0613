@@ -5,7 +5,7 @@ SET FOREIGN_KEY_CHECKS=0;
 -- ----------------------------
 DROP TABLE IF EXISTS `block`;
 CREATE TABLE `block` (
-                         `blockhash` char(64) NOT NULL,
+                         `block_hash` char(64) NOT NULL,
                          `height` int NOT NULL ,
                          `size` int ,
                          `difficulty` double,
@@ -14,10 +14,11 @@ CREATE TABLE `block` (
                          `prev_block` CHAR(64),
                          `time` datetime,
                          `txSize` smallint ,
-                         `outputtotal` double ,
-                         `transactionfees` double,
+                         `output_total` double ,
+                         `transaction_fees` double,
+                         `merkle_root` varchar(100),
                          `miner` varchar (50),
-                         PRIMARY KEY (`blockhash`),
+                         PRIMARY KEY (`block_hash`),
                          index `idx_time`(`time`),
                          index `idx_height`(`height`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 auto_increment=1;
