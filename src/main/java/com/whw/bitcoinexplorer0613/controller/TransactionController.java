@@ -15,8 +15,8 @@ import java.util.List;
 @RequestMapping("/transaction")
 public class TransactionController {
 
-    @GetMapping("/getTransactionsByBlockHash")
-    public List<TransactionListDTO> getTransactions(@RequestParam String blockHash){
+    @GetMapping("/getTransactions")
+    public List<TransactionListDTO> getTransactions(){
         ArrayList<TransactionListDTO> blockListDTOS = new ArrayList<>();
         TransactionListDTO transactionListDTO = new TransactionListDTO();
         transactionListDTO.setTxHash("d28d9ca8b170fbdece854e74dc1dd9360ef97431609520ae696a125b703daf63");
