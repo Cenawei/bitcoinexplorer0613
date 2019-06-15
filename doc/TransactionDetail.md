@@ -2,7 +2,7 @@
 
 
 method：GET  
-url:/transactionDetail/getTransactionDetailByTxHash   
+url:/transactionDetail/getTransactionDetailByTxHash?txHash={txHash}  
 ```json
 
 successResponse： 

@@ -2,7 +2,7 @@
 
 
 method：GET  
-url:/transaction/getTransactionsByBlockHash   
+url:/transaction/getTransactionsByBlockHash?blockHash={blockHash}   
 ```json
 
 successResponse： 
