@@ -66,7 +66,7 @@ successResponse：
 
 | ResponseField     |     Type |   Description   | 
 | :--------------: | :--------:| :------: |
-|    blockHash|   String |  区块hash |
+|    blockHash|   String |  区块hash 主键 |
 |    height|   Integer |  区块高度 |
 |    size|   Integer | 区块大小 |
 |    difficulty|   Double | 难度 |
