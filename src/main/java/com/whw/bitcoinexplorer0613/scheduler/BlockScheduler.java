@@ -10,6 +10,7 @@ public class BlockScheduler {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
     @Scheduled(fixedRate = 60*10*1000)
+
     public void syncData(){
         logger.info("开始同步块信息");
     }

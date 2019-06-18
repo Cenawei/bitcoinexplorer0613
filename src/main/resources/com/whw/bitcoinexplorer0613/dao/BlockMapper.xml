@@ -185,4 +185,12 @@
       miner = #{miner,jdbcType=VARCHAR}
     where block_hash = #{blockHash,jdbcType=CHAR}
   </update>
+  <!--add-->
+  <select id="selectBlocks"  resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from block
+    order by height desc
+    limit 5
+  </select>
 </mapper>
