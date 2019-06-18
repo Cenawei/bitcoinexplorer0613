@@ -77,7 +77,7 @@ public class TempController {
     }
     @GetMapping("/getBlock")
     public String getBlock() throws Throwable {
-        String tempBlockHash = "000000000000072be43763a9617cd7f18c55ce04eb0d2fbd55afa1970e7dd7de";
+        String tempBlockHash = "000000000000038c79111230af144f5dffb8be3b1e1686c09346f213fac00ef0";
         bitcoinService.syncBlock(tempBlockHash);
         return null;
     }
