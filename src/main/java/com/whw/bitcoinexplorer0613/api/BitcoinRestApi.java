@@ -34,4 +34,7 @@ public interface BitcoinRestApi {
 
     @GetMapping("/rest/mempool/contents.json")
     JSONObject getMempoolContents();
+
+    @GetMapping("/rest/block/{blockHash}.json")
+    JSONObject getBlock(@PathVariable(value = "blockHash") String blockHash);
 }

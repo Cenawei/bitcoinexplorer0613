@@ -4,12 +4,16 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.whw.bitcoinexplorer0613.api.BitcoinJsonRpcApi;
 import com.whw.bitcoinexplorer0613.api.BitcoinRestApi;
+import com.whw.bitcoinexplorer0613.dao.BlockMapper;
+import com.whw.bitcoinexplorer0613.po.Block;
+import com.whw.bitcoinexplorer0613.service.BitcoinService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -19,9 +23,12 @@ public class TempController {
 
     @Autowired
     private BitcoinRestApi bitcoinRestApi;
-
     @Autowired
     private BitcoinJsonRpcApi bitcoinJsonRpcApi;
+    @Autowired
+    private BlockMapper blockMapper;
+    @Autowired
+    private BitcoinService bitcoinService;
     @GetMapping("/getBlockChainInfo")
     public String getBlockChainInfo(){
        return bitcoinRestApi.getBlockChainInfo().toJSONString();
@@ -67,5 +74,11 @@ public class TempController {
     public String getBlockChainInfoRPC() throws Throwable {
         JSONObject blockChainInfo = bitcoinJsonRpcApi.getBlockChainInfo();
         return blockChainInfo.toJSONString();
+    }
+    @GetMapping("/getBlock")
+    public String getBlock() throws Throwable {
+        String tempBlockHash = "000000000000072be43763a9617cd7f18c55ce04eb0d2fbd55afa1970e7dd7de";
+        bitcoinService.syncBlock(tempBlockHash);
+        return null;
     }
 }

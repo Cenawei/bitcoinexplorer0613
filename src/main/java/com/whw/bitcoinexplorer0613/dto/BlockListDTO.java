@@ -5,7 +5,7 @@ import java.util.Date;
 public class BlockListDTO {
     private String blockHash;
     private Integer height;
-    private Date time;
+    private Long time;
     private Short txsize;
     private String miner;
     private Integer size;
@@ -24,14 +24,6 @@ public class BlockListDTO {
 
     public void setHeight(Integer height) {
         this.height = height;
-    }
-
-    public Date getTime() {
-        return time;
-    }
-
-    public void setTime(Date time) {
-        this.time = time;
     }
 
     public Short getTxsize() {
@@ -56,5 +48,14 @@ public class BlockListDTO {
 
     public void setSize(Integer size) {
         this.size = size;
+    }
+
+
+    public Long getTime() {
+        return time;
+    }
+
+    public void setTime(Long time) {
+        this.time = time;
     }
 }

@@ -61,7 +61,7 @@ public class BlockController {
             blockListDTO.setMiner(null);
             //todo
             blockListDTO.setSize(null);
-            blockListDTO.setTime(new Date(1000*time));
+
             blockListDTO.setTxsize(jsonObject.getShort("nTx"));
             blockListDTOS.add(blockListDTO);
         }
