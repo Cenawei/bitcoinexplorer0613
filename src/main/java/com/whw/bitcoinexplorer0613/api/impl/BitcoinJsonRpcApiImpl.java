@@ -31,4 +31,18 @@ public class BitcoinJsonRpcApiImpl implements BitcoinJsonRpcApi {
         JSONObject jsonObject = jsonRpcHttpClient.invoke("getblockchaininfo", new Object[]{}, JSONObject.class);
         return jsonObject;
     }
+
+
+
+    @Override
+    public JSONObject getBlockByHash(String blockhash) throws Throwable {
+        JSONObject jsonObject = jsonRpcHttpClient.invoke("getblock", new Object[]{blockhash}, JSONObject.class);
+        return jsonObject;
+    }
+
+    @Override
+    public String getBlockhashByHeight(Integer height) throws Throwable {
+        String result = jsonRpcHttpClient.invoke("getblockhash", new Object[]{height}, String.class);
+        return result;
+    }
 }
