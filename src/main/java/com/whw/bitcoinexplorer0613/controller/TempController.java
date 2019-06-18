@@ -47,11 +47,11 @@ public class TempController {
         return blockNoTxDetails.toJSONString();
     }
 
-    @GetMapping("/getBlockhashByHeight")
-    public String getBlockhashByHeight(){
-        String blockNoTxDetails = bitcoinRestApi.getBlockhashByHeight(5328);
+    /*@GetMapping("/getBlockhashByHeight")
+    public String getBlockhashByHeight(Integer height){
+        String blockNoTxDetails = bitcoinRestApi.getBlockhashByHeight(height);
         return blockNoTxDetails;
-    }
+    }*/
 
     @GetMapping("/getMempool")
     public String getMempool(){

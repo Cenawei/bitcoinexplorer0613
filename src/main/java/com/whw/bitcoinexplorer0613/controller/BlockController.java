@@ -26,7 +26,7 @@ public class BlockController {
     private BitcoinJsonRpcApi bitcoinJsonRpcApi;
 
 
-    @GetMapping("/getRecentBlocks")
+    @GetMapping("/getBlocks")
     public List<BlockListDTO> getRecentBlocks() throws Throwable {
        /* ArrayList<BlockListDTO> blockListDTOS = new ArrayList<>();
         BlockListDTO blockListDTO = new BlockListDTO();
