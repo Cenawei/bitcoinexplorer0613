@@ -4,9 +4,11 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.whw.bitcoinexplorer0613.api.BitcoinRestApi;
 import com.whw.bitcoinexplorer0613.dao.BlockMapper;
+import com.whw.bitcoinexplorer0613.dao.TransactionDetailMapper;
 import com.whw.bitcoinexplorer0613.dao.TransactionMapper;
 import com.whw.bitcoinexplorer0613.po.Block;
 import com.whw.bitcoinexplorer0613.po.Transaction;
+import com.whw.bitcoinexplorer0613.po.TransactionDetail;
 import com.whw.bitcoinexplorer0613.service.BitcoinService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,12 +30,13 @@ public class BitcoinServiceImpl implements BitcoinService {
     private BlockMapper blockMapper;
     @Autowired
     private TransactionMapper transactionMapper;
+    @Autowired
+    private TransactionDetailMapper transactionDetailMapper;
     @Override
     @Async
     @Transactional
     public void syncBlock(String blockHash) {
         String tempBlockHash = blockHash;
-        logger.info("hash为："+blockHash);
         while (tempBlockHash != null && !tempBlockHash.isEmpty()) {
             JSONObject blockJson = bitcoinRestApi.getBlock(tempBlockHash);
             Block block = new Block();
@@ -76,6 +79,39 @@ public class BitcoinServiceImpl implements BitcoinService {
         transaction.setSize(txJson.getInteger("size"));
         transaction.setWeight(txJson.getFloat("weight"));
         transactionMapper.insert(transaction);
+        String txHash = transaction.getTxHash();
+        syncTxDetail(txJson,txHash);
         //todo set tx amount
+    }
+
+    @Override
+    @Transactional
+    public void syncTxDetail(JSONObject txJson,String txHash) {
+        JSONArray vins = txJson.getJSONArray("vin");
+        syncTxDetailVin(vins);
+        JSONArray vouts = txJson.getJSONArray("vout");
+        syncTxDetailVout(vouts,txHash);
+
+    }
+
+    @Override
+    @Transactional
+    public void syncTxDetailVout(JSONArray vouts,String txHash) {
+        TransactionDetail transactionDetail = new TransactionDetail();
+        for (Object vout:vouts) {
+            JSONObject jsonObject = new JSONObject((LinkedHashMap) vout);
+            transactionDetail.setAdress(jsonObject.getJSONObject("scriptPubKey").getString("addresses"));
+            transactionDetail.setTxHash(txHash);
+            //transactionDetail.setType(jsonObject.getJSONObject("scriptPubKey").getByte("type"));
+        }
+        transactionDetailMapper.insert(transactionDetail);
+    }
+
+    @Override
+    public void syncTxDetailVin(JSONArray vins) {
+        for (Object vin:vins) {
+            JSONObject jsonObject = new JSONObject((LinkedHashMap) vin);
+
+        }
     }
 }
