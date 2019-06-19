@@ -49,9 +49,9 @@ public class TempController {
         return blockNoTxDetails;
     }*/
     @GetMapping("/gettx")
-    public String gettx(){
-        JSONObject blockNoTxDetails = bitcoinRestApi.gettx("2c319bbe81502b5e5aa2f169006c0e5ad81d1a3d0f4a65a81eef0a7fbce7617e");
-        return blockNoTxDetails.toJSONString();
+    public JSONObject gettx(){
+        JSONObject blockNoTxDetails = bitcoinRestApi.gettx("32e903262984e58da9c0cc421a76e3cf91a9fae49f53050f16570da69e3549c1");
+        return blockNoTxDetails;
     }
 
     /*@GetMapping("/getBlockhashByHeight")
@@ -77,7 +77,7 @@ public class TempController {
     }
     @GetMapping("/getBlock")
     public String getBlock() throws Throwable {
-        bitcoinService.syncBlock("000000000000038c79111230af144f5dffb8be3b1e1686c09346f213fac00ef0");
+        bitcoinService.syncBlock("000000000000577e6bf5c9fec38ce8c86acdaf2d5df62abe77a5c94a44c97b9f");
         return null;
     }
 }

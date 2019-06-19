@@ -6,6 +6,7 @@ import com.whw.bitcoinexplorer0613.api.BitcoinRestApi;
 import com.whw.bitcoinexplorer0613.dao.BlockMapper;
 import com.whw.bitcoinexplorer0613.dao.TransactionDetailMapper;
 import com.whw.bitcoinexplorer0613.dao.TransactionMapper;
+import com.whw.bitcoinexplorer0613.enumeration.DetailType;
 import com.whw.bitcoinexplorer0613.po.Block;
 import com.whw.bitcoinexplorer0613.po.Transaction;
 import com.whw.bitcoinexplorer0613.po.TransactionDetail;
@@ -88,7 +89,7 @@ public class BitcoinServiceImpl implements BitcoinService {
     @Transactional
     public void syncTxDetail(JSONObject txJson,String txHash) {
         JSONArray vins = txJson.getJSONArray("vin");
-        syncTxDetailVin(vins);
+        syncTxDetailVin(vins, txHash);
         JSONArray vouts = txJson.getJSONArray("vout");
         syncTxDetailVout(vouts,txHash);
 
@@ -100,18 +101,44 @@ public class BitcoinServiceImpl implements BitcoinService {
         TransactionDetail transactionDetail = new TransactionDetail();
         for (Object vout:vouts) {
             JSONObject jsonObject = new JSONObject((LinkedHashMap) vout);
-            transactionDetail.setAdress(jsonObject.getJSONObject("scriptPubKey").getString("addresses"));
+            JSONObject scriptPubKey = jsonObject.getJSONObject("scriptPubKey");
+            JSONArray addresses = scriptPubKey.getJSONArray("addresses");
+            if(addresses!=null){
+                String address = addresses.getString(0);
+                transactionDetail.setAdress(address);
+            }
+            transactionDetail.setType((byte) DetailType.Receive.ordinal());
             transactionDetail.setTxHash(txHash);
+            transactionDetail.setAmount(jsonObject.getDouble("value"));
             //transactionDetail.setType(jsonObject.getJSONObject("scriptPubKey").getByte("type"));
         }
         transactionDetailMapper.insert(transactionDetail);
     }
 
     @Override
-    public void syncTxDetailVin(JSONArray vins) {
+    @Transactional
+    public void syncTxDetailVin(JSONArray vins,String txHash) {
         for (Object vin:vins) {
             JSONObject jsonObject = new JSONObject((LinkedHashMap) vin);
-
+            String txid = jsonObject.getString("txid");
+            Integer vont = jsonObject.getInteger("vout");
+            if(txid!=null){
+                JSONObject getVinTx = bitcoinRestApi.gettx(txid);
+                JSONArray vouts = getVinTx.getJSONArray("vout");
+                JSONObject n = vouts.getJSONObject(vont);
+                TransactionDetail transactionDetail = new TransactionDetail();
+                transactionDetail.setAmount(-n.getDouble("value"));
+                transactionDetail.setTxHash(txHash);
+                transactionDetail.setType((byte) DetailType.Send.ordinal());
+                JSONObject scriptPubKey = n.getJSONObject("scriptPubKey");
+                JSONArray addresses = scriptPubKey.getJSONArray("addresses");
+                if(addresses!=null){
+                    String address = addresses.getString(0);
+                    transactionDetail.setAdress(address);
+                }
+                transactionDetailMapper.insert(transactionDetail);
+            }
         }
+
     }
 }
