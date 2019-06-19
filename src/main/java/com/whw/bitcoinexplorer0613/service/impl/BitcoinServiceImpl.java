@@ -33,13 +33,24 @@ public class BitcoinServiceImpl implements BitcoinService {
     private TransactionMapper transactionMapper;
     @Autowired
     private TransactionDetailMapper transactionDetailMapper;
+
     @Override
     @Async
+    public void syncBlockchainHash(String blockhash) throws Throwable {
+        logger.info("开始同步");
+        String tempBlockhash = blockhash;
+        while (tempBlockhash != null && !tempBlockhash.isEmpty()){
+            String nextBlock = syncBlock(tempBlockhash);
+            tempBlockhash = nextBlock;
+        }
+        logger.info("同步结束");
+    }
+
+    @Override
     @Transactional
-    public void syncBlock(String blockHash) {
-        String tempBlockHash = blockHash;
-        while (tempBlockHash != null && !tempBlockHash.isEmpty()) {
-            JSONObject blockJson = bitcoinRestApi.getBlock(tempBlockHash);
+    public String syncBlock(String blockHash) {
+
+            JSONObject blockJson = bitcoinRestApi.getBlock(blockHash);
             Block block = new Block();
             block.setBlockHash(blockJson.getString("hash"));
             block.setHeight(blockJson.getInteger("height"));
@@ -60,12 +71,12 @@ public class BitcoinServiceImpl implements BitcoinService {
             JSONArray txArray = blockJson.getJSONArray("tx");
             for (Object tx:txArray) {
                 JSONObject jsonObject = new JSONObject((LinkedHashMap) tx);
-                syncTx(jsonObject, tempBlockHash, time, confirmations);
+                syncTx(jsonObject, blockHash, time, confirmations);
             }
-            tempBlockHash = block.getNextBlock();
+            return block.getNextBlock();
 
-        }
-        logger.info("同步完成");
+
+
 
     }
 
