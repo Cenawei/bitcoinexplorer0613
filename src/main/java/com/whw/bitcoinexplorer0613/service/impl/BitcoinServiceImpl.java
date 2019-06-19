@@ -36,7 +36,19 @@ public class BitcoinServiceImpl implements BitcoinService {
     @Async
     @Transactional
     public void syncBlock(String blockHash) {
-        String tempBlockHash = blockHash;
+        String tempBlockHash = "";
+        JSONObject blockChainInfo = bitcoinRestApi.getBlockChainInfo();
+        Integer bestHeight = blockChainInfo.getInteger("blocks");
+        Block block1 = blockMapper.selectByPrimaryKey(blockHash);
+        if(block1!=null){
+            Integer bestHeightDb = blockMapper.selectByHeight();
+            if(!bestHeight.equals(bestHeightDb)){
+                JSONObject blockhashByHeight = bitcoinRestApi.getBlockhashByHeight(bestHeightDb+1);
+                tempBlockHash=blockhashByHeight.getString("blockhash");
+            }
+        }else{
+            tempBlockHash=blockHash;
+        }
         while (tempBlockHash != null && !tempBlockHash.isEmpty()) {
             JSONObject blockJson = bitcoinRestApi.getBlock(tempBlockHash);
             Block block = new Block();
@@ -88,7 +100,7 @@ public class BitcoinServiceImpl implements BitcoinService {
     @Transactional
     public void syncTxDetail(JSONObject txJson,String txHash) {
         JSONArray vins = txJson.getJSONArray("vin");
-        syncTxDetailVin(vins);
+        syncTxDetailVin(vins,txHash);
         JSONArray vouts = txJson.getJSONArray("vout");
         syncTxDetailVout(vouts,txHash);
 
@@ -108,7 +120,7 @@ public class BitcoinServiceImpl implements BitcoinService {
     }
 
     @Override
-    public void syncTxDetailVin(JSONArray vins) {
+    public void syncTxDetailVin(JSONArray vins,String txHash) {
         for (Object vin:vins) {
             JSONObject jsonObject = new JSONObject((LinkedHashMap) vin);
 

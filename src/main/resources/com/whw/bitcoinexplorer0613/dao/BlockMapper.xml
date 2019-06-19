@@ -193,4 +193,7 @@
     order by height desc
     limit 5
   </select>
+  <select id="selectByHeight" resultType="java.lang.Integer">
+    select height from block order by height desc limit 1
+  </select>
 </mapper>

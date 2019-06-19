@@ -10,6 +10,6 @@ public interface BitcoinService {
     void syncTx(JSONObject txJson, String blockHash, Date time,Integer confirmations);
     void syncTxDetail(JSONObject txJson,String txHash);
     void syncTxDetailVout(JSONArray vouts,String txHash);
-    void syncTxDetailVin(JSONArray vins);
+    void syncTxDetailVin(JSONArray vins,String txHash);
 
 }

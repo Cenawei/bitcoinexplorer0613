@@ -19,6 +19,6 @@ public interface BlockMapper {
     int updateByPrimaryKey(Block record);
     //add
     List<Block> selectBlocks();
-
+    Integer selectByHeight();
 
 }

@@ -27,7 +27,7 @@ public interface BitcoinRestApi {
     JSONObject gettx(@PathVariable(value = "blockHash") String blockHash);
 
     @GetMapping("/rest/blockhashbyheight/{height}.json")
-    String getBlockhashByHeight(@PathVariable(value = "height") Integer height);
+    JSONObject getBlockhashByHeight(@PathVariable(value = "height") Integer height);
 
     @GetMapping("/rest/mempool/info.json")
     JSONObject getMempool();
