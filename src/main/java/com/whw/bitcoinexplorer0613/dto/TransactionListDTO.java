@@ -5,7 +5,7 @@ import java.util.Date;
 public class TransactionListDTO {
     private String txHash;
     private String blockHash;
-    private Date time;
+    private Long time;
     private Double amount;
 
     public String getTxHash() {
@@ -24,19 +24,19 @@ public class TransactionListDTO {
         this.blockHash = blockHash;
     }
 
-    public Date getTime() {
-        return time;
-    }
-
-    public void setTime(Date time) {
-        this.time = time;
-    }
-
     public Double getAmount() {
         return amount;
     }
 
     public void setAmount(Double amount) {
         this.amount = amount;
+    }
+
+    public Long getTime() {
+        return time;
+    }
+
+    public void setTime(Long time) {
+        this.time = time;
     }
 }

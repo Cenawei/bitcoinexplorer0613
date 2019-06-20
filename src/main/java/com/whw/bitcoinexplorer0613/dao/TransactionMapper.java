@@ -2,6 +2,8 @@ package com.whw.bitcoinexplorer0613.dao;
 
 import com.whw.bitcoinexplorer0613.po.Transaction;
 
+import java.util.List;
+
 public interface TransactionMapper {
     int deleteByPrimaryKey(String txHash);
 
@@ -14,4 +16,6 @@ public interface TransactionMapper {
     int updateByPrimaryKeySelective(Transaction record);
 
     int updateByPrimaryKey(Transaction record);
+
+    List<Transaction> selectTransactions();
 }
