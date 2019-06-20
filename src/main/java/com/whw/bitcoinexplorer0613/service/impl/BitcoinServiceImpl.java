@@ -93,7 +93,7 @@ public class BitcoinServiceImpl implements BitcoinService {
         transactionMapper.insert(transaction);
         String txHash = transaction.getTxHash();
         syncTxDetail(txJson,txHash);
-        //todo set tx amount
+
     }
 
     @Override

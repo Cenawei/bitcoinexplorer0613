@@ -150,4 +150,10 @@
       size = #{size,jdbcType=INTEGER}
     where tx_detail_id = #{txDetailId,jdbcType=BIGINT}
   </update>
+
+
+
+  <select id="getBalance" parameterType="java.lang.String" resultType="java.lang.Double">
+    select sum(amount) from transaction_detail where adress=#{address}
+  </select>
 </mapper>
