@@ -64,7 +64,7 @@ public class BitcoinServiceImpl implements BitcoinService {
             block.setPrevBlock(blockJson.getString("previousblockhash"));
             block.setNextBlock(blockJson.getString("nextblockhash"));
             block.setMerkleRoot(blockJson.getString("merkleroot"));
-            Integer confirmations = blockJson.getInteger("blockJson");
+            Integer confirmations = blockJson.getInteger("confirmations");
             blockMapper.insert(block);
 
 
@@ -93,7 +93,6 @@ public class BitcoinServiceImpl implements BitcoinService {
         transactionMapper.insert(transaction);
         String txHash = transaction.getTxHash();
         syncTxDetail(txJson,txHash);
-
     }
 
     @Override

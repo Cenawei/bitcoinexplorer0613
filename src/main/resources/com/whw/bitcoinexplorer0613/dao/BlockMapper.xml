@@ -193,4 +193,11 @@
     order by height desc
     limit 5
   </select>
+
+  <select id="selectBlockByHeight" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from block
+    where height = #{searchFactor,jdbcType=CHAR}
+  </select>
 </mapper>

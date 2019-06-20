@@ -18,11 +18,11 @@
     amount, type, size
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from transaction_detail
-    where tx_detail_id = #{txDetailId,jdbcType=BIGINT}
-  </select>
+  select
+  <include refid="Base_Column_List" />
+  from transaction_detail
+  where tx_detail_id = #{txDetailId,jdbcType=BIGINT}
+</select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from transaction_detail
     where tx_detail_id = #{txDetailId,jdbcType=BIGINT}
@@ -156,4 +156,13 @@
   <select id="getBalance" parameterType="java.lang.String" resultType="java.lang.Double">
     select sum(amount) from transaction_detail where adress=#{address}
   </select>
+
+
+  <select id="selectTransactionDetailByAddress" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from transaction_detail
+    where adress = #{searchFactor,jdbcType=BIGINT}
+  </select>
+
 </mapper>

@@ -6,10 +6,7 @@ import com.whw.bitcoinexplorer0613.dto.TransactionListDTO;
 import com.whw.bitcoinexplorer0613.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -17,6 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/transaction")
+@CrossOrigin
 public class TransactionController {
     @Autowired
     private TransactionService transactionService;
