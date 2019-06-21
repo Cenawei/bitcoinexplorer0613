@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="assets/css/elementui.css">
+    <title>Blockchain Explorer</title>
+</head>
+
+<body>
+    <div id="app">
+
+        <el-container>
+            <el-header>
+                <el-input v-model="searchFactor" placeholder="Search" style="width: 800px"></el-input>
+                <el-button type="primary" @click="handleSearch">Search</el-button>
+            </el-header>
+            <el-main>
+                <template>
+                    <el-tabs v-model="activeName" @tab-click="handleClick">
+                        <el-tab-pane label="BLOCKS" name="first">
+                            <template>
+                                <el-table :data="showblockList" style="width: 100%">
+                                    <el-table-column prop="height" label="Height" width="180">
+                                    </el-table-column>
+                                    <el-table-column prop="time" label="Age" width="180">
+                                    </el-table-column>
+                                    <el-table-column prop="txsize" label="Transactions">
+                                    </el-table-column>
+                                    <el-table-column prop="miner" label="Miner">
+                                    </el-table-column>
+                                    <el-table-column prop="size" label="Size (bytes)">
+                                    </el-table-column>
+                                </el-table>
+                            </template>
+                        </el-tab-pane>
+                        <el-tab-pane label="TRANSACTIONDS" name="second">
+                            <template>
+                                <el-table :data="showtransactionList" style="width: 100%">
+                                    <el-table-column prop="txHash" width="550px" label="Transaction Hash" width="180">
+                                    </el-table-column>
+                                    <el-table-column prop="time" width="250px" label="Age" width="180">
+                                    </el-table-column>
+                                    <el-table-column prop="amount" label="Amount (BTC)">
+                                    </el-table-column>
+                                    <el-table-column prop="amount" label="Amount (USD)">
+                                    </el-table-column>
+                                </el-table>
+                            </template>
+                        </el-tab-pane>
+                    </el-tabs>
+                </template>
+            </el-main>
+        </el-container>
+    </div>
+
+    </div>
+    <script src="assets/js/axios.min.js"></script>
+    <script src="assets/js/vue.js"></script>
+    <script src="assets/js/common.js"></script>
+    <script src="assets/js/elementui.js"></script>
+    <script src="assets/view/BlockList.js"></script>
+</body>
+
+</html>

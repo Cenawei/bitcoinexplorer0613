@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="assets/css/elementui.css">
+    <title>Blockchain Explorer</title>
+    <style type="text/css">
+        .div1 {
+            max-width: 100%;
+            height: 0px;
+            overflow: hidden;
+            padding-bottom: 6%;
+            border-style: solid;
+            position: relative;
+            background-color: rgba(0, 46, 100);
+        }
+
+        .end {
+            max-width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="div1">
+        </div>
+        <div class="div2">
+            <h1>Block #{{searchList[0].height}}</h1> <br>
+
+            Height: {{searchList[0].height}} <br>
+            Difficulty： {{searchList[0].difficulty}} <br>
+            Time:  {{searchList[0].time}}<br>
+            Size： {{searchList[0].size}} <br>
+            Hash： {{searchList[0].blockHash}} <br>
+            Previous Block： {{searchList[0].prevBlock}} <br>
+            Next Block(s)： {{searchList[0].nextBlock}}<br>
+            Merkle： {{searchList[0].merkleRoot}} <br>
+        </div>
+    </div>
+    <script src="assets/js/axios.min.js"></script>
+    <script src="assets/js/vue.js"></script>
+    <script src="assets/js/common.js"></script>
+    <script src="assets/js/elementui.js"></script>
+    <script src="assets/view/SearchList.js"></script>
+</body>
+
+</html>
