@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 public class BlockScheduler {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
-    @Scheduled(fixedRate = 10*60*1000)
+    @Scheduled(fixedRate = 3000)
     public void syncData(){
         logger.info("开始同步块信息");
     }
